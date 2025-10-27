@@ -23,7 +23,7 @@ int main(void){
     int * p = (int*)malloc(sizeof(int));
     printf("The address of the pointer %p (STACK)\n", &p);
     printf("The address of the dynamic block %p (HEAP)\n", p);    
-    printf("The stack frame of test is at address (STACK) %p\n", test);
-    printf("The stack frame of main is at address (STACK) %p\n", main);
+    printf("The stack frame of test is at address (TEXT/Code) %p\n", test);
+    printf("The stack frame of main is at address (TEXT/Code) %p\n", main);
     printf("Global_int %d\n", global_init);
 }
