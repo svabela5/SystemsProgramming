@@ -21,7 +21,7 @@ struct Message {
     union MessageData data;
 };
 
-void printMessage(struct Message msg)
+struct Message printMessage(struct Message msg)
 {
     switch (msg.type)
     {
@@ -71,15 +71,16 @@ struct Message newMessge(void){
         default:
             break;
     }
+    return newMsg;
 }
 
 void printMenu(void){
-        puts("\nMenu:\n");
-        puts("1) Add\n");
-        puts("2) Remove\n");
-        puts("3) Show at index\n");
-        puts("4) Show all\n");
-        puts("5) Exit\n");
+        printf("\nMenu:\n");
+        printf("1) Add\n");
+        printf("2) Remove\n");
+        printf("3) Show at index\n");
+        printf("4) Show all\n");
+        printf("5) Exit\n");
         printf("Enter your choice: \n");
 }
 
@@ -94,8 +95,41 @@ int main(void)
         printMenu();
         scanf("%d", &choice);
 
-        
+        switch (choice)
+        {
+        case 1:
+            if (count < MAX)
+            {
+                Messages[count] = newMessge();
+                count++;
+            }else{
+                printf("Array is full");
+            }
+            break;
+        case 2:
+            count --;
+            // Messages[count] = NULL;
+            break;
+        case 3:
+            printf("Select index to show");
+            scanf("%d", &choice);
+            if (choice > 0 && choice < count)
+            {
+                printMessage(Messages[choice]);
+            } else {
+                printf("invalid index");
+            }
+            break;
+        case 4:
+            for (int i = 0; i < count; i++)
+            {
+                printMessage(Messages[i]);
+            }
+            break;
+        default:
+            break;
+        }
     }
     
-    
+    printf("Goodbye");
 }
