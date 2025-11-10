@@ -1,0 +1,37 @@
+6		age = age / test;
+7	}
+8	void f1(int age)
+9	{
+10		int local = 10;
+11		f2(age+local);
+12	}
+13	int main(int argc, char **argv)
+14	{
+15		int age = 33;
+Starting program: C:\Users\svena\Documents\LEVEL 6\LVL 6.3\Systems Programming\SystemsProgramming\Testing/test.exe 
+[New Thread 15368.0x13a8]
+[New Thread 15368.0x1378]
+
+Program received signal SIGFPE, Arithmetic exception.
+0x00401421 in f2 (age=43) at test.c:6
+6		age = age / test;
+#0  0x00401421 in f2 (age=43) at test.c:6
+#1  0x00401447 in f1 (age=33) at test.c:11
+#2  0x0040146c in main (argc=1, argv=0xc41608) at test.c:16
+#0  0x00401421 in f2 (age=43) at test.c:6
+#1  0x00401447 in f1 (age=33) at test.c:11
+#2  0x0040146c in main (argc=1, argv=0xc41608) at test.c:16
+Breakpoint 1 at 0x401416: file test.c, line 5.
+The program being debugged has been started already.
+Start it from the beginning? (y or n) error return ../../gdb-7.6.1/gdb/windows-nat.c:1275 was 5
+Starting program: C:\Users\svena\Documents\LEVEL 6\LVL 6.3\Systems Programming\SystemsProgramming\Testing/test.exe 
+[New Thread 12276.0x5128]
+[New Thread 12276.0x5b00]
+
+Breakpoint 1, f2 (age=43) at test.c:5
+5		int test = age-age;
+6		age = age / test;
+test = 0
+test = 1
+Continuing.
+[Inferior 1 (process 12276) exited normally]
