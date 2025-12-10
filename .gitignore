@@ -4,7 +4,6 @@
 !*/ 
 !makefile*
 !core*
-!test2
 
 # Ignore all object files 
 *.o 
