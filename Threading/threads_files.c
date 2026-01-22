@@ -8,6 +8,7 @@
 #define NAME_SIZE 32
 
 char *out_file;
+pthread_mutex_t file_mutex;
 
 typedef struct {
     char name[NAME_SIZE];
@@ -23,7 +24,7 @@ void* thread_func(void *ptr)
 
     for (unsigned int i = 0; i < info->maximum; i++)
     {
-
+        pthread_mutex_lock(&file_mutex);
         FILE* fp = fopen(out_file, "a");
         if (fp)
         {
@@ -34,6 +35,7 @@ void* thread_func(void *ptr)
         {
             fprintf(stderr, "Could not open file (thread %s)\n", info->name);
         }
+        pthread_mutex_unlock(&file_mutex);
 
         sleep(info->delay);
     }
@@ -96,6 +98,7 @@ void process_userinput(void)
 
 int main(int argc, char **argv)
 {
+    pthread_mutex_init(&file_mutex, NULL);
     if (argc != 2)
     {
         fprintf(stderr, "Usage: %s <output_file>\n", argv[0]);
@@ -105,6 +108,11 @@ int main(int argc, char **argv)
     out_file = argv[1];
 
     process_userinput();
-    printf("Program ending...\n");
 
+    printf("Program ending...\n");
+    
+    pthread_exit(NULL);
+    printf("Program ended.\n");
+    pthread_mutex_destroy(&file_mutex);
+    return 0;
 }
