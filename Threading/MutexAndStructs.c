@@ -38,8 +38,10 @@ int main() {
     //    - Arg2: amount = -50
     Transaction* deposit = (Transaction*)malloc(sizeof(Transaction));
     deposit->deposit = 100;
+    deposit->withdraw = 0;
     Transaction* withdraw = (Transaction*)malloc(sizeof(Transaction));
     withdraw->withdraw = 50;
+    deposit->deposit = 0;
     
     // 4. Create threads
     if(pthread_create(&t1,NULL, handleTransaction, deposit) != 0){
