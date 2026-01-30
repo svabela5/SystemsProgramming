@@ -6,15 +6,10 @@
 #include <string.h>
 
 #define PORT 11111    /* the port client will be connecting to */
-#define MAX_DATA_SIZE 128
+#define MSG "Fox Tal Kantina\n"
+#define MAX_DATA_SIZE 25 /* max number of bytes we can get at once */
 
 int main(int argc, char *argv[]) {
-    char* inputFile;
-    if (argc < 2){
-        printf("input file required");
-        return(2);
-    }
-    inputFile = argv[1];
     int sockfd, numbytes;  
     char buf[MAX_DATA_SIZE] = {0};
     struct sockaddr_in srv_addr = {0};
@@ -34,24 +29,20 @@ int main(int argc, char *argv[]) {
         return -2;
     }
 
-FILE* fp = fopen(inputFile, "r");
-int count = 0;
-if (fp){
-    fscanf(fp, "%d", &count);
-} else {
-    printf("Error reading file\n");
-    return(1);
-}
+    char input[MAX_DATA_SIZE];
 
-    while (fscanf(fp, "%s", buf) == 1)
+    while(1)
     {
-        if (send(sockfd, buf, strlen(buf), 0) == -1){
+        printf(">");
+        scanf("%s", input);
+        printf("\n");
+        if (send(sockfd, input, strlen(input), 0) == -1){
             printf("send() failed\n");
             return -3;
         }
+
         
         printf("Data sent successfully \n");
-        memset(buf, 0, sizeof(buf));
 
         /* normally you would put recv() in a loop */    
         numbytes = recv(sockfd, buf, MAX_DATA_SIZE, 0);
@@ -61,8 +52,10 @@ if (fp){
         }
 
         printf("Received: %s", buf);
-        memset(buf, 0, sizeof(buf));
     }
+
+    atoi()
+    
     printf("Press any key to exit...");// Pause before closing
     getchar();
     close(sockfd);
